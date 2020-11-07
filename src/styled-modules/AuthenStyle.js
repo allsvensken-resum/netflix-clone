@@ -4,7 +4,7 @@ const authenStyles = makeStyles({
   container: {
     width: '80%',
     maxWidth: '450px',
-    height: 500,
+    height: 510,
     color: 'white',
     marginLeft: 'auto',
     marginRight: 'auto',

@@ -3,7 +3,7 @@ import FlexRow from '../styled-components/FlexRow';
 import './Navbar.css';
 import Button from '@material-ui/core/Button';
 
-function Navbar() {
+function Navbar({ handleSignOut }) {
   return (
     <div className="nav">
       <h3>NETFLIX</h3>
@@ -14,7 +14,7 @@ function Navbar() {
         <li>Latest</li>
         <li>My list</li>
       </ul>
-      <Button style={{ marginRight: '2rem' }} size={'small'} variant="contained" color="secondary">
+      <Button onClick={handleSignOut} style={{ marginRight: '2rem' }} size={'small'} variant="contained" color="secondary">
         Log out</Button>
     </div>
   )

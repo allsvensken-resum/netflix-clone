@@ -3,12 +3,13 @@ import Navbar from './Navbar';
 import requests from '../request';
 import React, { useEffect, useState } from 'react';
 import instance from '../axios';
+import { useAuth } from '../contexts/AuthProvider';
 
 function MainPage() {
 
   const [trendingMovie, setTrendingMovie] = useState();
   const imageBaseURL = 'https://image.tmdb.org/t/p/original/';
-
+  const { signOut } = useAuth();
 
   const movieTopic = [
     { title: 'Netflix Originals', fetchURL: requests.fetchNetflixOriginals },
@@ -32,12 +33,18 @@ function MainPage() {
     console.log(process.env);
   }, [])
 
-
+  const handleSignOut = async () => {
+    try {
+      const signedOut = signOut();
+    } catch (err) {
+      alert(err.message);
+    }
+  }
 
   return (
 
-    <div className="App" style={{ backgroundColor: '#141414'}}>
-      <Navbar />
+    <div className="App" style={{ backgroundColor: '#141414' }}>
+      <Navbar handleSignOut={handleSignOut} />
       <div style={{
         width: '100vw',
         position: 'relative'
