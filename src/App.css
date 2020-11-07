@@ -4,3 +4,14 @@
   box-sizing: border-box;
 }
 
+body {
+  overflow-x: hidden;
+}
+
+/* body::-webkit-scrollbar {
+  display: none;
+} */
+
+.App {
+  background-color: #141414;
+}

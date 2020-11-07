@@ -1,8 +1,12 @@
 .poster {
-  max-height: 200px;
+  width: 18%;
   object-fit: contain;
-  margin-right: 1rem;
+  /* margin-right: 1rem; */
+  /* margin: 0 .5rem; */
   transition: transform 450ms;
+  display: block;
+  /* border: 1px solid white; */
+  border-radius: 5px;
 }
 
 .poster:hover {
