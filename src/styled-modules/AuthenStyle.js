@@ -1,4 +1,4 @@
-import {makeStyles} from '@material-ui/styles';
+import { makeStyles } from '@material-ui/styles';
 
 const authenStyles = makeStyles({
   container: {
@@ -43,8 +43,19 @@ const authenStyles = makeStyles({
     '&:hover': {
       backgroundColor: 'rgba(255, 0, 0, 0.7)'
     },
-  }
+  },
 
+  alert: {
+    marginTop: '1rem', 
+    fontSize: '0.7rem'
+  },
+
+  loading: {
+    marginTop: '2rem',
+    marginLeft: 'auto',
+    marginRight: 'auto'
+  }
+  
 });
 
 export default authenStyles;

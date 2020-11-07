@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, Button, TextField } from '@material-ui/core';
+import { Card, CardContent, Button, TextField, CircularProgress } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import authenStyle from '../styled-modules/AuthenStyle';
 import { useHistory } from 'react-router-dom';
@@ -14,13 +14,16 @@ function Signup() {
   const history = useHistory();
   const { signUp } = useAuth();
   const [signUpErr, setSignUpErr] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       setSignUpErr(null);
       if (password !== confirmPassword) {
         setSignUpErr('Check your password confirmation ! ');
+        setLoading(false);
         return
       }
       const signedUp = await signUp(email, password);
@@ -28,6 +31,7 @@ function Signup() {
     } catch (err) {
       setSignUpErr(err.message);
     }
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -45,7 +49,9 @@ function Signup() {
         <TextField value={password} onChange={(e) => setPassword(e.target.value)} type="password" className={classes.input} variant='filled' label="Password" />
         <TextField value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type="password" className={classes.input} variant='filled' label="Password confirmation" />
         <Button style={{ marginTop: '2rem' }} type='submit' className={classes.button} variant="flilled">Sign up</Button>
-        {signUpErr && <Alert severity='error' style={{ fontSize: '0.7rem', marginTop: '1rem' }}>{signUpErr}</Alert>}
+        {/* {signUpErr && <Alert severity='error' style={{ fontSize: '0.7rem', marginTop: '1rem' }}>{signUpErr}</Alert>} */}
+        {signUpErr && <Alert className={classes.alert} severity='error'>{signUpErr}</Alert>}
+        {loading && <CircularProgress className={classes.loading} color='secondary' />}
       </form>
       <p style={{ marginTop: '2rem', textAlign: 'center' }}>Have an account already? <Link to='/signin'>Sign in.</Link></p>
     </Card >
