@@ -39,10 +39,15 @@ const authenStyles = makeStyles({
     color: 'white',
     backgroundColor: 'red',
     marginTop: '3rem',
-    padding: '.7rem',
+    display: 'flex',
+    alignItems: 'center',
+    // padding: '.7rem',
     '&:hover': {
       backgroundColor: 'rgba(255, 0, 0, 0.7)'
     },
+    '&:disabled': {
+      backgroundColor: 'rgba(255, 0, 0, 0.5)'
+    }
   },
 
   alert: {
@@ -50,12 +55,6 @@ const authenStyles = makeStyles({
     fontSize: '0.7rem'
   },
 
-  loading: {
-    marginTop: '2rem',
-    marginLeft: 'auto',
-    marginRight: 'auto'
-  }
-  
 });
 
 export default authenStyles;

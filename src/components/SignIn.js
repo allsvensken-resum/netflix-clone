@@ -39,9 +39,11 @@ function Login() {
       <form onSubmit={handleSignIn} class={classes.form}>
         <TextField value={email} onChange={(e) => setEmail(e.target.value)} type='email' className={classes.input} variant='filled' label="Email" />
         <TextField value={password} onChange={e => setPassword(e.target.value)} type="password" className={classes.input} variant='filled' label="Password" />
-        <Button type='submit' className={classes.button} variant="flilled">Sign In</Button>
-        {loginErr && <Alert className={classes.alert}  severity='error'>{loginErr}</Alert>}
-        {loading && <CircularProgress className={classes.loading} color='secondary' />}
+        {!loading ? <Button disabled={loading} type='submit' className={classes.button} variant="flilled">Sign In</Button>
+          : <Button disabled={loading} type='submit' className={classes.button} variant="flilled">
+            <CircularProgress size={25} color='primary' />
+          </Button>}
+        {loginErr && <Alert className={classes.alert} severity='error'>{loginErr}</Alert>}
       </form>
       <p style={{ marginTop: '2rem', textAlign: 'center' }}>New to Netflix? <Link to='/signup'>Sign up now.</Link></p>
     </Card >

@@ -48,10 +48,11 @@ function Signup() {
         <TextField value={email} onChange={(e) => setEmail(e.target.value)} type='email' className={classes.input} variant='filled' label="Email" />
         <TextField value={password} onChange={(e) => setPassword(e.target.value)} type="password" className={classes.input} variant='filled' label="Password" />
         <TextField value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type="password" className={classes.input} variant='filled' label="Password confirmation" />
-        <Button style={{ marginTop: '2rem' }} type='submit' className={classes.button} variant="flilled">Sign up</Button>
-        {/* {signUpErr && <Alert severity='error' style={{ fontSize: '0.7rem', marginTop: '1rem' }}>{signUpErr}</Alert>} */}
+        {!loading ? <Button disabled={loading} type='submit' className={classes.button} variant="flilled">Sign up</Button>
+          : <Button disabled={loading} type='submit' className={classes.button} variant="flilled">
+            <CircularProgress size={25} color='primary' />
+          </Button>}
         {signUpErr && <Alert className={classes.alert} severity='error'>{signUpErr}</Alert>}
-        {loading && <CircularProgress className={classes.loading} color='secondary' />}
       </form>
       <p style={{ marginTop: '2rem', textAlign: 'center' }}>Have an account already? <Link to='/signin'>Sign in.</Link></p>
     </Card >

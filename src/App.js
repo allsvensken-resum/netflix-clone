@@ -6,8 +6,10 @@ import Signup from './components/Signup';
 import SignIn from './components/SignIn';
 import ProtectedRoute from './components/ProtectedRoute';
 import AuthProvider from './contexts/AuthProvider';
+import { Helmet } from 'react-helmet';
 
 function App() {
+
 
   return (
     <Router>
