@@ -24,6 +24,7 @@ function Posters({ id, title, backdrop_path, overview, poster_path, vote_average
   const [rateColor, setRateColor] = useState(null);
   const [open, setOpen] = useState(false);
   const [trailerID, setTrailerID] = useState('');
+  const [favoriteAdded, setFavoriteAdded] = useState(false);
 
   const fetchTrailerID = async (query) => {
     const youtubeURL = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${process.env.REACT_APP_FIREBASE_YOUTUBE_API_KEY}&q=${query}`
@@ -36,6 +37,18 @@ function Posters({ id, title, backdrop_path, overview, poster_path, vote_average
     vote_average >= 8 ? setRateColor({ color: '#51d624' })
       : vote_average > 6 ? setRateColor({ color: 'orange' })
         : setRateColor({ color: 'red' })
+  }, [])
+
+  useEffect(() => {
+    const unsubscribe = db.collection('users').doc(auth.currentUser.uid.toString()).collection('favorites').doc(id.toString())
+    .onSnapshot(snapshot => {
+      if(snapshot.data() && !deleteButton) {
+        setFavoriteAdded(true);
+      } else {
+        setFavoriteAdded(false);
+      }
+    })
+    return unsubscribe;
   }, [])
 
   const handleClose = () => {
@@ -64,7 +77,7 @@ function Posters({ id, title, backdrop_path, overview, poster_path, vote_average
           // youtube_id: trailerID
         }).then(() => {
         }).catch((error) => {
-
+            
         })
     } else {
       db.collection('users').doc(auth.currentUser.uid).collection('favorites')
@@ -81,10 +94,10 @@ function Posters({ id, title, backdrop_path, overview, poster_path, vote_average
         <div className='poster__header'>
           <div className='poster__overview'>Overview</div>
           <div style={rateColor} className='poster__vote'>{vote_average}</div>
-         { title && <button onClick={handleOpen} className='poster__playbutton'>
+          {title && <button onClick={handleOpen} className='poster__playbutton'>
             <PlayArrowIcon fontSize='inherit' />
           </button>}
-          <IconButton onClick={handleAddFavorite} size='small' style={{
+          <IconButton disabled={favoriteAdded} color='primary' onClick={handleAddFavorite} size='small' style={{
             fontSize: '1.3vw',
             widtht: 'auto',
             height: 'auto',
@@ -92,7 +105,7 @@ function Posters({ id, title, backdrop_path, overview, poster_path, vote_average
           }}
           >
             {deleteButton ? <HighlightOffOutlinedIcon color='secondary' fontSize='inherit' />
-              : <AddCircleOutlineIcon color='primary' fontSize='inherit' />}
+              : <AddCircleOutlineIcon fontSize='inherit' />}
           </IconButton>
         </div>
         <div className='poster__item'>
