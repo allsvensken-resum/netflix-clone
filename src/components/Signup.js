@@ -5,6 +5,7 @@ import authenStyle from '../styled-modules/AuthenStyle';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthProvider';
 import { Alert } from '@material-ui/lab';
+import { auth, db } from '../firebase';
 
 function Signup() {
 
@@ -27,7 +28,12 @@ function Signup() {
         return
       }
       const signedUp = await signUp(email, password);
-      history.push('/');
+      db.collection('users').doc(auth.currentUser.uid)
+        .set({
+          email: auth.currentUser.email,
+        }).then(() => {
+          history.push('/');
+        })
     } catch (err) {
       setSignUpErr(err.message);
     }
