@@ -79,8 +79,7 @@ function MainPage() {
       </div>
       <FavoriteRow title={'Favorite List'} />
       {movieTopic.map((movie, index) => {
-        if (index == 0) {
-        } else {
+        if (index !== 0) {
           return <Row key={index} title={movie.title} fetchURL={movie.fetchURL} />;
         }
       })
